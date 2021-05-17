@@ -1,0 +1,12 @@
+{
+  "name": "thesis-list",
+  "displayName": "thesis-list",
+  "expo": {
+    "name": "thesis-list",
+    "slug": "thesis-list",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
