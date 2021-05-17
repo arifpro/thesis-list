@@ -41,7 +41,7 @@ const login = async (req, res) => {
 
 // <==================== signup ====================>
 const signup = (req, res) => {
-  const { name, jobId, email, phone, password } = req.body;
+  const { name, title, jobId, email, phone, password } = req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -65,7 +65,7 @@ const signup = (req, res) => {
         });
       }
 
-      const newJudge = new Judge({ name, jobId, email, phone, password });
+      const newJudge = new Judge({ name, title, jobId, email, phone, password });
       const save = newJudge.save();
 
       if (save) {

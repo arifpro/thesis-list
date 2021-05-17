@@ -3,23 +3,19 @@ import shortid from "shortid";
 
 const { Schema, model } = mongoose;
 
-const judgeSchema = new Schema(
+const studentSchema = new Schema(
   {
     _id: {
       type: String,
       default: shortid.generate,
     },
-    jobId: {
+    studentId: {
       type: String,
       required: true,
     },
     name: {
       type: String,
       required: true,
-    },
-    title: {
-      type: String,
-      default: "",
     },
     email: {
       type: String,
@@ -29,16 +25,20 @@ const judgeSchema = new Schema(
       type: String,
       default: "",
     },
-    password: {
+    college: {
       type: String,
-      required: true,
+      default: "",
+    },
+    profession: {
+      type: String,
+      default: "",
+    },
+    year: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }
 );
 
-judgeSchema.methods.authenticate = function(password) {      
-  return this.password === password;
-}
-
-export default model("Judge", judgeSchema);
+export default model("Student", studentSchema);
