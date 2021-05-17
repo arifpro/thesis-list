@@ -37,7 +37,18 @@ const Routes = () => {
           fontWeight: "bold",
           marginBottom: 3,
         },
+        style: {
+          // backgroundColor: "green",
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
+          boxShadow: '0px 5px 20px gray',
+        },
+        tabStyle: {
+          paddingTop: 10,
+          borderTopColor: "#d8d8d8",
+        },
       }}
+      initialRouteName="Details"
     >
       <Tab.Screen name="Students" component={AllStudents} />
       <Tab.Screen name="Details" component={StudentDetails} />
