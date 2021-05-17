@@ -2,9 +2,18 @@
   "name": "thesis-list",
   "displayName": "thesis-list",
   "expo": {
-    "name": "thesis-list",
+    "name": "Thesis List",
     "slug": "thesis-list",
+    "icon": "./icon.png",
     "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "me.devarif.thesis-list",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "me.devarif.thesis-list",
+      "versionCode": 1
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
