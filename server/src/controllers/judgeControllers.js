@@ -27,11 +27,11 @@ const login = async (req, res) => {
         });
       }
 
-      const { name, email } = user;
+      const { name, email, phone } = user;
 
       return res.status(200).json({
         message: "Login success",
-        judge: { jobId, name, email, password },
+        judge: { jobId, name, email, phone, password },
       });
     });
   } catch (err) {
@@ -41,7 +41,7 @@ const login = async (req, res) => {
 
 // <==================== signup ====================>
 const signup = (req, res) => {
-  const { name, jobId, email, password } = req.body;
+  const { name, jobId, email, phone, password } = req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -65,7 +65,7 @@ const signup = (req, res) => {
         });
       }
 
-      const newJudge = new Judge({ name, jobId, email, password });
+      const newJudge = new Judge({ name, jobId, email, phone, password });
       const save = newJudge.save();
 
       if (save) {

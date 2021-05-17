@@ -3,7 +3,7 @@ import shortid from "shortid";
 
 const { Schema, model } = mongoose;
 
-const judgeSchema = new Schema(
+const teacherSchema = new Schema(
   {
     _id: {
       type: String,
@@ -25,16 +25,8 @@ const judgeSchema = new Schema(
       type: String,
       default: "",
     },
-    password: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );
 
-judgeSchema.methods.authenticate = function(password) {      
-  return this.password === password;
-}
-
-export default model("Judge", judgeSchema);
+export default model("Teacher", teacherSchema);

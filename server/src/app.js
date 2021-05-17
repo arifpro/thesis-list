@@ -13,7 +13,7 @@ database();
 
 // import routers
 import judgeRoutes from "./routes/judgeRoutes.js";
-// import teacherRoutes from "./routes/teacherRoutes.js";
+import teacherRoutes from "./routes/teacherRoutes.js";
 // import studentRoutes from "./routes/studentRoutes.js";
 
 app.use(function (req, res, next) {
@@ -32,7 +32,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/judge", judgeRoutes);
-// app.use("/api/teacher", teacherRoutes);
+app.use("/api/teacher", teacherRoutes);
 // app.use("/api/student", studentRoutes);
 
 // Run Server

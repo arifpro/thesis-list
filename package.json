@@ -23,5 +23,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0"
   },
+  "author": "Md Arif Hossain | http://devarif.me",
   "private": true
 }
