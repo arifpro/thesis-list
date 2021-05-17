@@ -62,16 +62,16 @@ const styles = StyleSheet.create({
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import {
-  todoGet,
-  todoAdd,
-  todoUpdate,
-  todoDelete,
-} from "../redux/actions/todoActions";
+  studentGet,
+  studentAdd,
+  studentUpdate,
+  studentDelete,
+} from "../redux/actions/studentActions";
 
 const AllStudents = () => {
   const dispatch = useDispatch();
-  const todo = useSelector((state) => state.todo);
-  const [data, setData] = React.useState(todo?.todoData);
+  const students = useSelector((state) => state.students);
+  const [data, setData] = React.useState(students?.studentsData);
   const [text, onChangeText] = React.useState("");
   const [isUpdateOn, setIsUpdateOn] = React.useState(false);
   const [textUpdate, setTextUpdate] = React.useState({
@@ -79,37 +79,38 @@ const AllStudents = () => {
     isDone: false,
   });
 
+
   React.useEffect(() => {
-    dispatch(todoGet());
+    dispatch(studentGet());
   }, []);
 
   React.useEffect(() => {
-    setData(todo?.todoData);
-  }, [todo?.todoData]);
+    setData(students?.studentsData);
+  }, [students?.studentsData]);
 
   const handleAddTodo = () => {
-    dispatch(todoAdd(text));
+    dispatch(studentAdd(text));
     onChangeText("");
   };
 
   const handleDoneTodo = ({ id, title, isDone }) => {
-    dispatch(todoUpdate({ id, title, isDone }));
+    dispatch(studentUpdate({ id, title, isDone }));
   };
 
   const handleUpdateTodo = () => {
-    dispatch(todoUpdate({ ...textUpdate, title: text }));
+    dispatch(studentUpdate({ ...textUpdate, title: text }));
     onChangeText("");
     setIsUpdateOn(false);
   };
 
   const handleDeleteTodo = (id) => {
-    dispatch(todoDelete(id));
+    dispatch(studentDelete(id));
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, marginTop: 20 }}>
-      {/* <View style={{ flex: 1, marginTop: 50 }}> */}
+        {/* <View style={{ flex: 1, marginTop: 50 }}> */}
         <Text style={styles.headerText}>All Todo List</Text>
         <View style={styles.inputSection}>
           <TextInput
@@ -130,13 +131,10 @@ const AllStudents = () => {
         </View>
 
         <FlatList
-          // data={DATA}
           data={data}
           renderItem={({ item }) => (
             <SingleStudent
-              id={item._id}
-              title={item.title}
-              isDone={item.isDone}
+              item={item}
               setIsUpdateOn={setIsUpdateOn}
               handleDoneTodo={handleDoneTodo}
               handleUpdateTodo={handleUpdateTodo}
@@ -152,6 +150,4 @@ const AllStudents = () => {
   );
 };
 
-
-
-export default AllStudents
+export default AllStudents;

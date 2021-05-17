@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
+    color: "black",
   },
   btns: {
     flexDirection: "row",
@@ -30,9 +31,7 @@ const styles = StyleSheet.create({
 });
 
 const SingleStudent = ({
-  id,
-  title,
-  isDone,
+  item,
   setIsUpdateOn,
   setTextUpdate,
   handleDoneTodo,
@@ -41,46 +40,42 @@ const SingleStudent = ({
 }) => (
   <View style={styles.item}>
     <Text
-      style={{
-        ...styles.title,
-        textDecorationLine: isDone ? "line-through" : "none",
-        color: isDone ? "gray" : "black",
-      }}
+      style={styles.title}
     >
-      {title}
+      {item.name}
     </Text>
     <View style={styles.btns}>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() =>
-          handleDoneTodo && handleDoneTodo({ id, title, isDone: true })
-        }
+        // onPress={() =>
+        //   handleDoneTodo && handleDoneTodo({ id, title, isDone: true })
+        // }
       >
         <MaterialIcons
           name="done-all"
           size={25}
-          color={isDone ? "gray" : "#0ec70e"}
+          color={"#0ec70e"}
         ></MaterialIcons>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => {
-          setIsUpdateOn && setIsUpdateOn(true);
-          onChangeText && onChangeText(title);
-          setTextUpdate && setTextUpdate({ id, isDone });
-        }}
+        // onPress={() => {
+        //   setIsUpdateOn && setIsUpdateOn(true);
+        //   onChangeText && onChangeText(title);
+        //   setTextUpdate && setTextUpdate({ id, isDone });
+        // }}
       >
-        <Entypo name="edit" size={25} color={isDone ? "gray" : "blue"}></Entypo>
+        {/* <Entypo name="edit" size={25} color={isDone ? "gray" : "blue"}></Entypo> */}
         {/* <Feather name="edit" size={25} color="skyblue"></Feather> */}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => handleDeleteTodo && handleDeleteTodo(id)}
+        // onPress={() => handleDeleteTodo && handleDeleteTodo(id)}
       >
         <MaterialIcons
           name="delete"
           size={25}
-          color={isDone ? "gray" : "tomato"}
+          // color={isDone ? "gray" : "tomato"}
         ></MaterialIcons>
       </TouchableOpacity>
     </View>

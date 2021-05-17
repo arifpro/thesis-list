@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 // navigation
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -15,38 +15,36 @@ import Profile from "./screens/Profile";
 const Tab = createBottomTabNavigator();
 
 const Routes = () => {
-    return (
-        
-        <Tab.Navigator
-        initialRouteName="SplashScreen"
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-              if (route.name === "Students") iconName = "group";
-              else if (route.name === "Details") iconName = "vcard";
-              else if (route.name === "Export") iconName = "share-square-o";
-              else if (route.name === "Profile") iconName = "user-circle";
+          if (route.name === "Students") iconName = "group";
+          else if (route.name === "Details") iconName = "vcard";
+          else if (route.name === "Export") iconName = "share-square-o";
+          else if (route.name === "Profile") iconName = "user-circle";
 
-              // You can return any component that you like here!
-              return <FontAwesome name={iconName} size={size} color={color} />;
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: "tomato",
-            inactiveTintColor: "gray",
-            labelStyle: {
-              fontWeight: "bold",
-              marginBottom: 3,
-            },
-          }}
-        >
-          <Tab.Screen name="Students" component={AllStudents} />
-          <Tab.Screen name="Details" component={StudentDetails} />
-          <Tab.Screen name="Export" component={Export} />
-          <Tab.Screen name="Profile" component={Profile} />
-        </Tab.Navigator>
-    )
-}
+          // You can return any component that you like here!
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: "tomato",
+        inactiveTintColor: "gray",
+        labelStyle: {
+          fontWeight: "bold",
+          marginBottom: 3,
+        },
+      }}
+    >
+      <Tab.Screen name="Students" component={AllStudents} />
+      <Tab.Screen name="Details" component={StudentDetails} />
+      <Tab.Screen name="Export" component={Export} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
+  );
+};
 
-export default Routes
+export default Routes;
