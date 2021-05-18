@@ -9,6 +9,14 @@ const studentSchema = new Schema(
       type: String,
       default: shortid.generate,
     },
+    课题名称: {
+      type: String,
+      default: "",
+    },
+    学年: {
+      type: String,
+      default: "",
+    },
     studentId: {
       type: String,
       required: true,
@@ -34,6 +42,26 @@ const studentSchema = new Schema(
       default: "",
     },
     year: {
+      type: String,
+      default: "",
+    },
+    instructorId: {
+      type: String,
+      default: "",
+    },
+    instructorName: {
+      type: String,
+      default: "",
+    },
+    judgeName: {
+      type: String,
+      default: "",
+    },
+    judgeTitle: {
+      type: String,
+      default: "",
+    },
+    defenseGroup: {
       type: String,
       default: "",
     },

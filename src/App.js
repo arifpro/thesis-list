@@ -1,5 +1,5 @@
 import React from "react";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 // navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,11 +17,11 @@ const Stack = createStackNavigator();
 
 const App = () => {
   const [loaded] = useFonts({
-    'LongCang-Regular': require('../assets/fonts/LongCang-Regular.ttf'),
-  'MaShanZheng-Regular': require('../assets/fonts/MaShanZheng-Regular.ttf'),
-  'Pattaya-Regular': require('../assets/fonts/Pattaya-Regular.ttf')
+    "LongCang-Regular": require("../assets/fonts/LongCang-Regular.ttf"),
+    "MaShanZheng-Regular": require("../assets/fonts/MaShanZheng-Regular.ttf"),
+    "Pattaya-Regular": require("../assets/fonts/Pattaya-Regular.ttf"),
   });
-  
+
   if (!loaded) {
     return null;
   }

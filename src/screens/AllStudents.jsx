@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import SingleStudent from "../components/SingleStudent";
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    // fontFamily: "Comic Sans MS",
+    fontFamily: "Pattaya-Regular",
     // color: "#f9c2ff",
     color: "#519e9e",
   },
@@ -57,7 +56,47 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
   },
+  tableSection: {
+    backgroundColor: "#fff",
+    padding: 10,
+    marginVertical: 3,
+    marginHorizontal: 8,
+    borderRadius: 12,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    boxShadow: "0px 5px 8px lightgray",
+  },
+  item: {
+    backgroundColor: "#fff",
+    padding: 10,
+    marginVertical: 3,
+    marginHorizontal: 8,
+    borderRadius: 12,
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+  },
 });
+
+const styles2 = {
+  tableHead: {
+    fontSize: 20,
+    // fontWeight: "bold",
+    // fontFamily: "LongCang-Regular",
+    fontFamily: "MaShanZheng-Regular",
+    // fontFamily: "Pattaya-Regular",
+    color: "black",
+    textAlign: "center",
+  },
+  title: {
+    fontSize: 16,
+    color: "rgb(125, 125, 125)",
+    fontFamily: "LongCang-Regular",
+    textAlign: "center",
+  },
+};
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -78,7 +117,6 @@ const AllStudents = () => {
     id: "",
     isDone: false,
   });
-
 
   React.useEffect(() => {
     dispatch(studentGet());
@@ -111,14 +149,14 @@ const AllStudents = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, marginTop: 20 }}>
         {/* <View style={{ flex: 1, marginTop: 50 }}> */}
-        <Text style={styles.headerText}>All Todo List</Text>
+        <Text style={styles.headerText}>All Students</Text>
         <View style={styles.inputSection}>
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
             value={text}
             // defaultValue={text}
-            placeholder="What needs to be done?"
+            placeholder="Add new student..."
           />
           <TouchableOpacity
             style={styles.addBtn}
@@ -130,18 +168,36 @@ const AllStudents = () => {
           </TouchableOpacity>
         </View>
 
+        {/* table head */}
+        <View style={styles.tableSection}>
+          <Text style={{ ...styles2.tableHead, width: "15%" }}>#</Text>
+          <Text style={{ ...styles2.tableHead, width: "35%" }}>学号</Text>
+          <Text style={{ ...styles2.tableHead, width: "50%" }}>姓名</Text>
+          <Text style={{ ...styles2.tableHead, width: "50%" }}>指导</Text>
+          <Text style={{ ...styles2.tableHead, width: "50%" }}>评</Text>
+        </View>
+
+        {/* table body */}
         <FlatList
           data={data}
-          renderItem={({ item }) => (
-            <SingleStudent
-              item={item}
-              setIsUpdateOn={setIsUpdateOn}
-              handleDoneTodo={handleDoneTodo}
-              handleUpdateTodo={handleUpdateTodo}
-              handleDeleteTodo={handleDeleteTodo}
-              onChangeText={onChangeText}
-              setTextUpdate={setTextUpdate}
-            />
+          renderItem={({ item, index }) => (
+            <View style={styles.item}>
+              <Text style={{ ...styles2.title, width: "15%" }}>
+                {index + 1}
+              </Text>
+              <Text style={{ ...styles2.title, width: "35%" }}>
+                {item.studentId}
+              </Text>
+              <Text style={{ ...styles2.title, width: "50%" }}>
+                {item.name}
+              </Text>
+              <Text style={{ ...styles2.title, width: "50%" }}>
+                {item.instructorName}
+              </Text>
+              <Text style={{ ...styles2.title, width: "50%" }}>
+                {item.judgeName}
+              </Text>
+            </View>
           )}
           keyExtractor={(item) => item._id}
         />

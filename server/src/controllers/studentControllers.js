@@ -4,7 +4,8 @@ import { validationResult } from "express-validator";
 // <==================== getAllStudents ====================>
 const getAllStudents = async (req, res) => {
   try {
-    const students = await Student.find({}).sort({ studentId: -1 });
+    // const students = await Student.find({}).sort({ studentId: -1 });
+    const students = await Student.find({}).sort({ instructorId: -1 });
 
     if (students) {
       return res.status(200).json({ students });

@@ -48,7 +48,7 @@ const Routes = () => {
           borderTopColor: "#d8d8d8",
         },
       }}
-      initialRouteName="Details"
+      initialRouteName="Students"
     >
       <Tab.Screen name="Students" component={AllStudents} />
       <Tab.Screen name="Details" component={StudentDetails} />
