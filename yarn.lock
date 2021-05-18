@@ -3227,7 +3227,7 @@
     "@expo/config-plugins" "^1.0.18"
     "uuid" "^3.4.0"
 
-"expo-font@~9.1.0":
+"expo-font@^9.1.0", "expo-font@~9.1.0":
   "integrity" "sha512-owzbbfrQet7mawTGKMXpVCIA9k56MGhtriO41AW4Zo65dd2Ikm4LoymuHKp2ZlHuIFjRnjECKWz7RXgy/C1yAg=="
   "resolved" "https://registry.npmjs.org/expo-font/-/expo-font-9.1.0.tgz"
   "version" "9.1.0"

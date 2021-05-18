@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/LongCang-Regular.ttf",
+      "sha1": "c92bd2045664029af1659d649235f89fe5ce7152"
+    },
+    {
+      "path": "assets/fonts/MaShanZheng-Regular.ttf",
+      "sha1": "55a59dd795aa3cc3420fe493590721733d65c4a3"
+    },
+    {
+      "path": "assets/fonts/Pattaya-Regular.ttf",
+      "sha1": "6159855f370a7cb84b9be24d4d1d7299d21099d8"
+    }
+  ]
+}
