@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   sectionStyle: {
@@ -10,21 +11,20 @@ const styles = StyleSheet.create({
     marginRight: 35,
     margin: 10,
   },
-  inputStyle: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderWidth: 1,
-    borderRadius: 30,
-    borderColor: "#dadae8",
-  },
 });
 
-const CustomInput = ({ placeholder, placeholderTextColor, textColor }) => {
+const CustomInput = ({
+  cnPlaceholder,
+  enPlaceholder,
+  placeholderTextColor,
+  textColor,
+  value,
+}) => {
+  const language = useSelector((state) => state.language);
+
   return (
     <View style={styles.sectionStyle}>
       <TextInput
-        // style={{ ...styles.inputStyle, color: (textColor || "black") }}
         style={{
           flex: 1,
           paddingLeft: 15,
@@ -32,11 +32,18 @@ const CustomInput = ({ placeholder, placeholderTextColor, textColor }) => {
           borderWidth: 1,
           borderRadius: 30,
           borderColor: "#dadae8",
-          fontFamily: "MaShanZheng-Regular",
+          fontSize:
+            language.selectedLanguage === language.languages[0] ? 15 : 18,
+          fontFamily:
+            language.selectedLanguage === language.languages[0]
+              ? "MaShanZheng-Regular"
+              : "LongCang-Regular",
+          width: "100%",
           color: textColor || "black",
         }}
         // onChangeText={(UserId) => setUserId(UserId)}
-        placeholder={placeholder}
+        value={value}
+        placeholder={language.selectedLanguage === language.languages[0] ? cnPlaceholder : enPlaceholder}
         placeholderTextColor={placeholderTextColor || "#8b9cb5"}
         autoCapitalize="none"
         keyboardType="text"

@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
+import { useSelector } from "react-redux";
 import CustomInput from "../components/CustomInput";
-
 
 const styles = StyleSheet.create({
   main: {
@@ -72,7 +72,10 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: "#FFFFFF",
     paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 20,
+    // fontFamily: "LongCang-Regular",
+    fontFamily: "MaShanZheng-Regular",
+    // fontFamily: "Pattaya-Regular",
   },
   inputStyle: {
     flex: 1,
@@ -85,13 +88,19 @@ const styles = StyleSheet.create({
   },
 });
 
+const StudentDetails = ({ route }) => {
+  const [student, setStudent] = React.useState(route?.params?.item);
+  const language = useSelector((state) => state.language);
 
-const StudentDetails = () => {
-    
+  React.useEffect(() => setStudent(route?.params?.item), [route?.params?.item]);
 
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>Student Details</Text>
+      <Text style={styles.title}>
+        {language.selectedLanguage === language.languages[0]
+          ? "学生资料"
+          : "Student Details"}
+      </Text>
       <View style={styles.info}>
         <View style={styles.container}>
           <ScrollView
@@ -104,8 +113,20 @@ const StudentDetails = () => {
           >
             <View>
               <KeyboardAvoidingView enabled>
-                <CustomInput placeholder="学生姓名" placeholderTextColor="#fff" textColor="white" />
-                <CustomInput placeholder="论文主题" placeholderTextColor="#fff" textColor="white" />
+                <CustomInput
+                  cnPlaceholder="学生姓名"
+                  enPlaceholder="Student name"
+                  placeholderTextColor="#fff"
+                  textColor="white"
+                  value={student?.name}
+                />
+                <CustomInput
+                  cnPlaceholder="论文主题"
+                  enPlaceholder="Thesis topic"
+                  placeholderTextColor="#fff"
+                  textColor="white"
+                  value={student?.课题名称}
+                />
               </KeyboardAvoidingView>
             </View>
           </ScrollView>
@@ -115,14 +136,6 @@ const StudentDetails = () => {
       {/* <=============== item section ===============> */}
       <View style={styles.item}>
         <View style={styles.container}>
-          {/* <Text style={{ color: "#5a89ea", fontFamily: "LongCang-Regular" }}>研究水平与实际能力</Text>
-          <Text style={{ color: "#5a89ea", fontFamily: "MaShanZheng-Regular" }}>研究水平与实际能力</Text>
-          <Text style={{ color: "#5a89ea", fontFamily: "Pattaya-Regular" }}>研究水平与实际能力</Text>
-
-          <Text style={{ color: "#5a89ea", fontFamily: "LongCang-Regular" }}>Student Details</Text>
-          <Text style={{ color: "#5a89ea", fontFamily: "MaShanZheng-Regular" }}>Student Details</Text>
-          <Text style={{ color: "#5a89ea", fontFamily: "Pattaya-Regular" }}>Student Details</Text> */}
-
           <ScrollView
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{
@@ -133,18 +146,34 @@ const StudentDetails = () => {
           >
             <View>
               <KeyboardAvoidingView enabled>
-                <CustomInput placeholder="选题质量" />
-                <CustomInput placeholder="研究水平与实际能力" />
-                <CustomInput placeholder="论文撰写质量" />
-                <CustomInput placeholder="学术水平与创新" />
-                <CustomInput placeholder="答辩" />
+                <CustomInput
+                  cnPlaceholder="选题质量"
+                  enPlaceholder="Topic quality"
+                />
+                <CustomInput
+                  cnPlaceholder="研究水平与实际能力"
+                  enPlaceholder="Research level and practical ability"
+                />
+                <CustomInput
+                  cnPlaceholder="论文撰写质量"
+                  enPlaceholder="Paper writing quality"
+                />
+                <CustomInput
+                  cnPlaceholder="学术水平与创新"
+                  enPlaceholder="Academic level and innovation"
+                />
+                <CustomInput cnPlaceholder="答辩" enPlaceholder="Reply" />
 
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   activeOpacity={0.5}
                   //   onPress={handleSubmitPress}
                 >
-                  <Text style={styles.buttonTextStyle}>SUBMIT</Text>
+                  <Text style={styles.buttonTextStyle}>
+                    {language.selectedLanguage === language.languages[0]
+                      ? "提交"
+                      : "Submit"}
+                  </Text>
                 </TouchableOpacity>
               </KeyboardAvoidingView>
             </View>

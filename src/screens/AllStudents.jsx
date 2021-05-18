@@ -85,7 +85,7 @@ const styles2 = {
     fontSize: 20,
     // fontWeight: "bold",
     // fontFamily: "LongCang-Regular",
-    fontFamily: "MaShanZheng-Regular",
+    // fontFamily: "MaShanZheng-Regular",
     // fontFamily: "Pattaya-Regular",
     color: "black",
     textAlign: "center",
@@ -107,9 +107,10 @@ import {
   studentDelete,
 } from "../redux/actions/studentActions";
 
-const AllStudents = () => {
+const AllStudents = ({ navigation }) => {
   const dispatch = useDispatch();
   const students = useSelector((state) => state.students);
+  const language = useSelector((state) => state.language);
   const [data, setData] = React.useState(students?.studentsData);
   const [text, onChangeText] = React.useState("");
   const [isUpdateOn, setIsUpdateOn] = React.useState(false);
@@ -149,39 +150,76 @@ const AllStudents = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1, marginTop: 20 }}>
         {/* <View style={{ flex: 1, marginTop: 50 }}> */}
-        <Text style={styles.headerText}>All Students</Text>
+        <Text style={styles.headerText}>
+          {language.selectedLanguage === language.languages[0]
+            ? "全体学生"
+            : "All Students"}
+        </Text>
         <View style={styles.inputSection}>
           <TextInput
             style={styles.input}
             onChangeText={onChangeText}
             value={text}
             // defaultValue={text}
-            placeholder="Add new student..."
+            placeholder={
+              language.selectedLanguage === language.languages[0]
+                ? "新增学生"
+                : "Add new student..."
+            }
           />
           <TouchableOpacity
             style={styles.addBtn}
             onPress={() => (isUpdateOn ? handleUpdateTodo() : handleAddTodo())}
           >
             <Text style={{ color: "#fff", fontWeight: "bold" }}>
-              {isUpdateOn ? "Update" : "Add"}
+              {isUpdateOn
+                ? language.selectedLanguage === language.languages[0]
+                  ? "更新"
+                  : "Update"
+                : language.selectedLanguage === language.languages[0]
+                ? "新增"
+                : "Add"}
             </Text>
           </TouchableOpacity>
         </View>
 
         {/* table head */}
         <View style={styles.tableSection}>
-          <Text style={{ ...styles2.tableHead, width: "15%" }}>#</Text>
-          <Text style={{ ...styles2.tableHead, width: "35%" }}>学号</Text>
-          <Text style={{ ...styles2.tableHead, width: "50%" }}>姓名</Text>
-          <Text style={{ ...styles2.tableHead, width: "50%" }}>指导</Text>
-          <Text style={{ ...styles2.tableHead, width: "50%" }}>评</Text>
+          <CustomText width="15%" cnName="#" enName="#" language={language} />
+          <CustomText
+            width="35%"
+            cnName="学号"
+            enName="ID"
+            language={language}
+          />
+          <CustomText
+            width="50%"
+            cnName="姓名"
+            enName="Name"
+            language={language}
+          />
+          <CustomText
+            width="50%"
+            cnName="指导"
+            enName="Instructor"
+            language={language}
+          />
+          <CustomText
+            width="50%"
+            cnName="评"
+            enName="Judge"
+            language={language}
+          />
         </View>
 
         {/* table body */}
         <FlatList
           data={data}
           renderItem={({ item, index }) => (
-            <View style={styles.item}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => navigation.navigate("Details", { item })}
+            >
               <Text style={{ ...styles2.title, width: "15%" }}>
                 {index + 1}
               </Text>
@@ -197,7 +235,7 @@ const AllStudents = () => {
               <Text style={{ ...styles2.title, width: "50%" }}>
                 {item.judgeName}
               </Text>
-            </View>
+            </TouchableOpacity>
           )}
           keyExtractor={(item) => item._id}
         />
@@ -205,5 +243,20 @@ const AllStudents = () => {
     </SafeAreaView>
   );
 };
+
+const CustomText = ({ width, cnName, enName, language }) => (
+  <Text
+    style={{
+      ...styles2.tableHead,
+      width: width,
+      fontFamily:
+        language.selectedLanguage === language.languages[0]
+          ? "MaShanZheng-Regular"
+          : "LongCang-Regular",
+    }}
+  >
+    {language.selectedLanguage === language.languages[0] ? cnName : enName}
+  </Text>
+);
 
 export default AllStudents;

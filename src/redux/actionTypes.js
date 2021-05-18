@@ -19,3 +19,7 @@ export const studentConstants = {
   STUDENT_DELETE_SUCCESS: "STUDENT_DELETE_SUCCESS",
   STUDENT_DELETE_FAILED: "STUDENT_DELETE_FAILED",
 };
+
+export const languageConstants = {
+  CHANGE_LANGUAGE: "CHANGE_LANGUAGE",
+}
