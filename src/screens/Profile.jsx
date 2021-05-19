@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: "70vh",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
-    boxShadow: "0px 5px 20px 0px white",
+    // boxShadow: "0px 5px 20px 0px white",
     boxShadow: "0px 3px 24px 0px white",
     padding: 30,
   },

@@ -2,16 +2,30 @@ import React, { useState, createRef } from "react";
 import {
   StyleSheet,
   TextInput,
+  // Modal,
   View,
   Text,
   ScrollView,
   Image,
   Keyboard,
   TouchableOpacity,
+  TouchableHighlight,
   KeyboardAvoidingView,
 } from "react-native";
-import { useSelector } from "react-redux";
+import {
+  ChakraProvider,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import CustomInput from "../components/CustomInput";
+import { studentUpdate } from "../redux/actions/studentActions";
 
 const styles = StyleSheet.create({
   main: {
@@ -37,7 +51,7 @@ const styles = StyleSheet.create({
     height: "70vh",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
-    boxShadow: "0px 5px 20px 0px white",
+    // boxShadow: "0px 5px 20px 0px white",
     boxShadow: "0px 3px 24px 0px white",
     padding: 30,
   },
@@ -65,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginLeft: 35,
     marginRight: 35,
-    marginTop: 20,
+    marginTop: 30,
     marginBottom: 25,
     fontWeight: "bold",
   },
@@ -89,10 +103,67 @@ const styles = StyleSheet.create({
 });
 
 const StudentDetails = ({ route }) => {
-  const [student, setStudent] = React.useState(route?.params?.item);
+  const dispatch = useDispatch();
   const language = useSelector((state) => state.language);
+  const initialSelectedStudent = {
+    课题名称: "",
+    学年: "",
+    email: "",
+    phone: "",
+    college: "",
+    profession: "",
+    year: "",
+    instructorId: "",
+    instructorName: "",
+    judgeName: "",
+    judgeTitle: "",
+    defenseGroup: "",
+    选题质量: "",
+    研究水平与实际能力: "",
+    论文撰写质量: "",
+    学术水平与创新: "",
+    答辩: "",
+    studentId: "",
+    name: "",
+    _id: "",
+    scoreUpdatedBy: ""
+  };
+  const [selectedStudent, setSelectedStudent] = React.useState({
+    ...initialSelectedStudent,
+  });
+  const [modalVisible, setModalVisible] = React.useState(false);
+  // const [isUpdateOn, setIsUpdateOn] = React.useState(false);
+  // const [textUpdate, setTextUpdate] = React.useState({
+  //   id: "",
+  //   isDone: false,
+  // });
 
-  React.useEffect(() => setStudent(route?.params?.item), [route?.params?.item]);
+  React.useEffect(() => {
+    setSelectedStudent(route?.params?.item);
+  }, [route?.params?.item]);
+
+  const handleSubmitPress = () => {
+    console.log(selectedStudent);
+    dispatch(studentUpdate(selectedStudent));
+
+    setSelectedStudent(initialSelectedStudent);
+    setModalVisible(true);
+    // alert("Submit Success");
+  };
+
+  const handleChange = (name, value) => {
+    setSelectedStudent({ ...selectedStudent, [name]: value });
+  };
+
+  // const handleUpdateTodo = () => {
+  //   dispatch(studentUpdate({ ...textUpdate, title: text }));
+  //   onChangeText("");
+  //   setIsUpdateOn(false);
+  // };
+
+  // const handleDeleteTodo = (id) => {
+  //   dispatch(studentDelete(id));
+  // };
 
   return (
     <View style={styles.main}>
@@ -118,14 +189,16 @@ const StudentDetails = ({ route }) => {
                   enPlaceholder="Student name"
                   placeholderTextColor="#fff"
                   textColor="white"
-                  value={student?.name}
+                  value={selectedStudent?.name}
+                  onChange={(value) => handleChange("name", value)}
                 />
                 <CustomInput
                   cnPlaceholder="论文主题"
                   enPlaceholder="Thesis topic"
                   placeholderTextColor="#fff"
                   textColor="white"
-                  value={student?.课题名称}
+                  value={selectedStudent?.课题名称}
+                  onChange={(value) => handleChange("课题名称", value)}
                 />
               </KeyboardAvoidingView>
             </View>
@@ -147,27 +220,67 @@ const StudentDetails = ({ route }) => {
             <View>
               <KeyboardAvoidingView enabled>
                 <CustomInput
+                  label
                   cnPlaceholder="选题质量"
                   enPlaceholder="Topic quality"
+                  value={
+                    selectedStudent?.选题质量.length > 0
+                      ? selectedStudent?.选题质量
+                      : ""
+                  }
+                  onChange={(value) => handleChange("选题质量", value)}
                 />
                 <CustomInput
+                  label
                   cnPlaceholder="研究水平与实际能力"
                   enPlaceholder="Research level and practical ability"
+                  value={
+                    selectedStudent?.研究水平与实际能力.length > 0
+                      ? selectedStudent?.研究水平与实际能力
+                      : ""
+                  }
+                  onChange={(value) =>
+                    handleChange("研究水平与实际能力", value)
+                  }
                 />
                 <CustomInput
+                  label
                   cnPlaceholder="论文撰写质量"
                   enPlaceholder="Paper writing quality"
+                  value={
+                    selectedStudent?.论文撰写质量.length > 0
+                      ? selectedStudent?.论文撰写质量
+                      : ""
+                  }
+                  onChange={(value) => handleChange("论文撰写质量", value)}
                 />
                 <CustomInput
+                  label
                   cnPlaceholder="学术水平与创新"
                   enPlaceholder="Academic level and innovation"
+                  value={
+                    selectedStudent?.学术水平与创新.length > 0
+                      ? selectedStudent?.学术水平与创新
+                      : ""
+                  }
+                  onChange={(value) => handleChange("学术水平与创新", value)}
                 />
-                <CustomInput cnPlaceholder="答辩" enPlaceholder="Reply" />
+                <CustomInput
+                  label
+                  cnPlaceholder="答辩"
+                  enPlaceholder="Reply"
+                  value={
+                    selectedStudent?.答辩.length > 0
+                      ? selectedStudent?.答辩
+                      : ""
+                  }
+                  onChange={(value) => handleChange("答辩", value)}
+                />
 
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   activeOpacity={0.5}
-                  //   onPress={handleSubmitPress}
+                  onPress={handleSubmitPress}
                 >
                   <Text style={styles.buttonTextStyle}>
                     {language.selectedLanguage === language.languages[0]
@@ -180,6 +293,29 @@ const StudentDetails = ({ route }) => {
           </ScrollView>
         </View>
       </View>
+
+      {/* Notification Modal */}
+      {modalVisible && (
+        <ChakraProvider>
+          <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader style={{ color: "green" }}>
+                Submit success
+              </ModalHeader>
+              {/* <ModalCloseButton /> */}
+              <ModalFooter>
+                <Button
+                  colorScheme="teal"
+                  onClick={() => setModalVisible(false)}
+                >
+                  OK
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </ChakraProvider>
+      )}
     </View>
   );
 };

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   sectionStyle: {
-    flexDirection: "row",
+    // flexDirection: "row",
     height: 40,
     marginTop: 20,
     marginLeft: 35,
@@ -19,16 +19,38 @@ const CustomInput = ({
   placeholderTextColor,
   textColor,
   value,
+  onChange,
+  keyboardType,
+  label,
 }) => {
   const language = useSelector((state) => state.language);
 
   return (
     <View style={styles.sectionStyle}>
+      {label && (
+        <View
+          style={{
+            fontSize: 13,
+            fontFamily:
+              language.selectedLanguage === language.languages[0]
+                ? "MaShanZheng-Regular"
+                : "LongCang-Regular",
+            color: "gray",
+            marginLeft: 10,
+            marginBottom: 3,
+          }}
+        >
+          {language.selectedLanguage === language.languages[0]
+            ? cnPlaceholder
+            : enPlaceholder}
+        </View>
+      )}
+
       <TextInput
         style={{
           flex: 1,
-          paddingLeft: 15,
-          paddingRight: 15,
+          paddingVertical: 10,
+          paddingHorizontal: 15,
           borderWidth: 1,
           borderRadius: 30,
           borderColor: "#dadae8",
@@ -41,12 +63,16 @@ const CustomInput = ({
           width: "100%",
           color: textColor || "black",
         }}
-        // onChangeText={(UserId) => setUserId(UserId)}
+        onChangeText={onChange}
         value={value}
-        placeholder={language.selectedLanguage === language.languages[0] ? cnPlaceholder : enPlaceholder}
+        placeholder={
+          language.selectedLanguage === language.languages[0]
+            ? cnPlaceholder
+            : enPlaceholder
+        }
         placeholderTextColor={placeholderTextColor || "#8b9cb5"}
         autoCapitalize="none"
-        keyboardType="text"
+        keyboardType={keyboardType || "text"}
         returnKeyType="next"
         // onSubmitEditing={() =>
         //   passwordInputRef.current && passwordInputRef.current.focus()

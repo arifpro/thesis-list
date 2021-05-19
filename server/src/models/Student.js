@@ -1,14 +1,9 @@
 import mongoose from "mongoose";
-import shortid from "shortid";
 
 const { Schema, model } = mongoose;
 
 const studentSchema = new Schema(
   {
-    _id: {
-      type: String,
-      default: shortid.generate,
-    },
     课题名称: {
       type: String,
       default: "",
@@ -62,6 +57,30 @@ const studentSchema = new Schema(
       default: "",
     },
     defenseGroup: {
+      type: String,
+      default: "",
+    },
+    选题质量: {
+      type: String,
+      default: "",
+    },
+    研究水平与实际能力: {
+      type: String,
+      default: "",
+    },
+    论文撰写质量: {
+      type: String,
+      default: "",
+    },
+    学术水平与创新: {
+      type: String,
+      default: "",
+    },
+    答辩: {
+      type: String,
+      default: "",
+    },
+    scoreUpdatedBy: {
       type: String,
       default: "",
     },

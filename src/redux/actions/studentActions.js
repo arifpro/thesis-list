@@ -70,20 +70,20 @@ export const studentAdd = (title) => async (dispatch) => {
 
 // <===================> studentUpdate <===================>
 export const studentUpdate =
-  ({ id, title, isDone }) =>
+  (updateData) =>
   async (dispatch) => {
     try {
       dispatch({
         type: studentConstants.STUDENT_UPDATE_REQUEST,
       });
 
-      const res = await axios.post(`${API_URL}/update`, { id, title, isDone });
+      const res = await axios.post(`${API_URL}/update`, updateData);
 
       if (res.status === 200) {
         dispatch(studentGet());
         // dispatch({
         //   type: studentConstants.STUDENT_UPDATE_SUCCESS,
-        //   payload: { id, title, isDone },
+        //   payload: {},
         // });
       } else {
         dispatch({

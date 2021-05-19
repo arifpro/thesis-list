@@ -63,21 +63,21 @@ const Export = () => {
         judgeName,
       };
     });
-    console.log(exportedData);
+
     setUserData(exportedData);
-  }, []);
+  }, [students]);
 
   return (
     <ChakraProvider>
       <View style={styles.main}>
         {loading ? (
-          <Text>Loading</Text>
+          <Text>Loading...</Text>
         ) : (
           <>
             <ArrayToExcelButton
               apiArray={userData}
               fileName={"ThesisResult.xls"}
-              buttonTitle={"Export Data"}
+              buttonTitle={language.selectedLanguage === language.languages[0] ? "汇出资料" : "Export Data"}
             />
           </>
         )}

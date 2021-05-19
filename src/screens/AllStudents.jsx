@@ -113,11 +113,6 @@ const AllStudents = ({ navigation }) => {
   const language = useSelector((state) => state.language);
   const [data, setData] = React.useState(students?.studentsData);
   const [text, onChangeText] = React.useState("");
-  const [isUpdateOn, setIsUpdateOn] = React.useState(false);
-  const [textUpdate, setTextUpdate] = React.useState({
-    id: "",
-    isDone: false,
-  });
 
   React.useEffect(() => {
     dispatch(studentGet());
@@ -130,20 +125,6 @@ const AllStudents = ({ navigation }) => {
   const handleAddTodo = () => {
     dispatch(studentAdd(text));
     onChangeText("");
-  };
-
-  const handleDoneTodo = ({ id, title, isDone }) => {
-    dispatch(studentUpdate({ id, title, isDone }));
-  };
-
-  const handleUpdateTodo = () => {
-    dispatch(studentUpdate({ ...textUpdate, title: text }));
-    onChangeText("");
-    setIsUpdateOn(false);
-  };
-
-  const handleDeleteTodo = (id) => {
-    dispatch(studentDelete(id));
   };
 
   return (
@@ -169,14 +150,10 @@ const AllStudents = ({ navigation }) => {
           />
           <TouchableOpacity
             style={styles.addBtn}
-            onPress={() => (isUpdateOn ? handleUpdateTodo() : handleAddTodo())}
+            onPress={() => handleAddTodo()}
           >
             <Text style={{ color: "#fff", fontWeight: "bold" }}>
-              {isUpdateOn
-                ? language.selectedLanguage === language.languages[0]
-                  ? "更新"
-                  : "Update"
-                : language.selectedLanguage === language.languages[0]
+              {language.selectedLanguage === language.languages[0]
                 ? "新增"
                 : "Add"}
             </Text>
@@ -218,7 +195,14 @@ const AllStudents = ({ navigation }) => {
           renderItem={({ item, index }) => (
             <TouchableOpacity
               style={styles.item}
-              onPress={() => navigation.navigate("Details", { item })}
+              onPress={() =>
+                navigation.navigate(
+                  language.selectedLanguage === language.languages[0]
+                    ? "细节"
+                    : "Details",
+                  { item }
+                )
+              }
             >
               <Text style={{ ...styles2.title, width: "15%" }}>
                 {index + 1}

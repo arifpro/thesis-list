@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 // component
 import Loader from "../components/Loader";
 import axios from "axios";
+import {studentGet} from "../redux/actions/studentActions";
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -78,10 +79,15 @@ const styles = StyleSheet.create({
 });
 
 const Login = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState("");
+
+  React.useEffect(() => {
+    dispatch(studentGet());
+  }, []);
 
   const passwordInputRef = createRef();
 
@@ -173,7 +179,7 @@ const Login = ({ navigation }) => {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={(UserId) => setUserId(UserId)}
-                placeholder="Enter Id" //dummy@abc.com
+                placeholder="Enter Id"
                 placeholderTextColor="#8b9cb5"
                 autoCapitalize="none"
                 keyboardType="email-address"

@@ -17,7 +17,28 @@ const getAllStudents = async (req, res) => {
 
 // <==================== addStudent ====================>
 const addStudent = (req, res) => {
-  const { studentId, name, email, phone, college, profession, year } = req.body;
+  const {
+    课题名称,
+    学年,
+    email,
+    phone,
+    college,
+    profession,
+    year,
+    instructorId,
+    instructorName,
+    judgeName,
+    judgeTitle,
+    defenseGroup,
+    选题质量,
+    研究水平与实际能力,
+    论文撰写质量,
+    学术水平与创新,
+    答辩,
+    studentId,
+    name,
+    scoreUpdatedBy,
+  } = req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -42,13 +63,26 @@ const addStudent = (req, res) => {
       }
 
       const newStudent = new Student({
-        studentId,
-        name,
+        课题名称,
+        学年,
         email,
         phone,
         college,
         profession,
         year,
+        instructorId,
+        instructorName,
+        judgeName,
+        judgeTitle,
+        defenseGroup,
+        选题质量,
+        研究水平与实际能力,
+        论文撰写质量,
+        学术水平与创新,
+        答辩,
+        studentId,
+        name,
+        scoreUpdatedBy,
       });
       const save = newStudent.save();
 
@@ -61,7 +95,29 @@ const addStudent = (req, res) => {
 
 // <==================== updateStudent ====================>
 const updateStudent = async (req, res) => {
-  const { _id, studentId, name, email, phone, college, profession, year } = req.body;
+  const {
+    课题名称,
+    学年,
+    email,
+    phone,
+    college,
+    profession,
+    year,
+    instructorId,
+    instructorName,
+    judgeName,
+    judgeTitle,
+    defenseGroup,
+    选题质量,
+    研究水平与实际能力,
+    论文撰写质量,
+    学术水平与创新,
+    答辩,
+    studentId,
+    name,
+    _id,
+    scoreUpdatedBy,
+  } = req.body;
 
   if (!(studentId.length > 0) || !(name.length > 0)) {
     return res.json({ message: "studentId and name must be required" });
@@ -69,13 +125,26 @@ const updateStudent = async (req, res) => {
 
   try {
     const editStudent = Student.findByIdAndUpdate(_id, {
-      studentId,
-      name,
+      课题名称: 课题名称,
+      学年: 学年,
       email,
       phone,
       college,
       profession,
       year,
+      instructorId,
+      instructorName,
+      judgeName,
+      judgeTitle,
+      defenseGroup,
+      选题质量: 选题质量,
+      研究水平与实际能力: 研究水平与实际能力,
+      论文撰写质量: 论文撰写质量,
+      学术水平与创新: 学术水平与创新,
+      答辩: 答辩,
+      studentId,
+      name,
+      scoreUpdatedBy,
       updatedAt: Date.now(),
     });
 
