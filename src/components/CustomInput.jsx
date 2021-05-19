@@ -22,6 +22,7 @@ const CustomInput = ({
   onChange,
   keyboardType,
   label,
+  secure,
 }) => {
   const language = useSelector((state) => state.language);
 
@@ -65,6 +66,7 @@ const CustomInput = ({
         }}
         onChangeText={onChange}
         value={value}
+        secureTextEntry={secure}
         placeholder={
           language.selectedLanguage === language.languages[0]
             ? cnPlaceholder

@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const { Schema, model } = mongoose;
 
 const judgeSchema = new Schema(
@@ -32,8 +31,8 @@ const judgeSchema = new Schema(
   { timestamps: true }
 );
 
-judgeSchema.methods.authenticate = function(password) {      
+judgeSchema.methods.authenticate = function (password) {
   return this.password === password;
-}
+};
 
 export default model("Judge", judgeSchema);

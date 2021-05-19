@@ -14,6 +14,7 @@ import CustomDropdown from "../components/CustomDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../redux/actions/languageActions";
 import CustomInput from "../components/CustomInput";
+import { changePassword } from "../redux/actions/authActions";
 
 const styles = StyleSheet.create({
   main: {
@@ -77,31 +78,77 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: "#dadae8",
   },
+  errorTextStyle: {
+    color: "red",
+    textAlign: "center",
+    fontSize: 14,
+    marginTop: 10,
+  },
 });
 
 const styles2 = {
   title: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: "bold",
     marginTop: 20,
     // fontFamily: "LongCang-Regular",
-    // fontFamily: "MaShanZheng-Regular",
-    fontFamily: "Pattaya-Regular",
+    fontFamily: "MaShanZheng-Regular",
+    // fontFamily: "Pattaya-Regular",
   },
 };
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const language = useSelector((state) => state.language);
-
   const data = [[language.languages[0], language.languages[1]]];
+  const [errorText, setErrorText] = useState("");
+  const [passData, setPassData] = React.useState({
+    oldPass: "",
+    newPass: "",
+    confirmPass: "",
+  });
+
+  React.useEffect(() => {
+    console.log(passData);
+  }, [passData]);
+
+  const handlePasswordChange = () => {
+    // _id, jobId, name, title, email, phone, password
+    if (passData.newPass === passData.confirmPass) {
+      if (passData.oldPass === auth.authData.password) {
+        const { _id, jobId, name, title, email, phone } = auth.authData;
+        dispatch(
+          changePassword({
+            _id,
+            jobId,
+            name,
+            title,
+            email,
+            phone,
+            password: passData.newPass,
+          })
+        );
+        setPassData({
+          oldPass: "",
+          newPass: "",
+          confirmPass: "",
+        });
+      } else {
+        setErrorText("Old password is not correct");
+      }
+    } else {
+      setErrorText("Password doesn't match");
+    }
+  };
+
+  const handleChange = (name, value) => {
+    setPassData({ ...passData, [name]: value });
+  };
 
   return (
-    // <View style={{ marginTop: 150 }}>
-
-    // </View>
     <View style={styles.main}>
       <View style={styles.info}>
         <View style={styles.container}>
@@ -113,7 +160,9 @@ const Profile = () => {
 
           <View style={{ marginVertical: 20, paddingHorizontal: 120 }}>
             <CustomDropdown
-            selectedLanguageIndex={language.selectedLanguage === language.languages[0] ? 0 : 1}
+              selectedLanguageIndex={
+                language.selectedLanguage === language.languages[0] ? 0 : 1
+              }
               style={{ borderRadius: 35, backgroundColor: "black !important" }}
               bgColor={"white"}
               tintColor={"#666666"}
@@ -138,6 +187,13 @@ const Profile = () => {
       {/* <=============== password section ===============> */}
       <View style={styles.item}>
         <View style={styles.container}>
+          <Text style={{ ...styles2.title, color: "#319795", fontSize: 18 }}>
+            {language.selectedLanguage === language.languages[0]
+              ? "欢迎"
+              : "Welcome"}
+            , {auth.authData.name}
+          </Text>
+
           <Text style={{ ...styles2.title, color: "#5a89ea" }}>
             {language.selectedLanguage === language.languages[0]
               ? "更改密码"
@@ -155,27 +211,41 @@ const Profile = () => {
             <View>
               <KeyboardAvoidingView enabled>
                 <CustomInput
+                  label
                   cnPlaceholder="旧密码"
                   enPlaceholder="Old Password"
+                  secure
+                  value={passData.oldPass}
+                  onChange={(value) => handleChange("oldPass", value)}
                 />
                 <CustomInput
+                  label
                   cnPlaceholder="新密码"
                   enPlaceholder="New Password"
+                  secure
+                  value={passData.newPass}
+                  onChange={(value) => handleChange("newPass", value)}
                 />
                 <CustomInput
+                  label
                   cnPlaceholder="确认新密码"
                   enPlaceholder="Confirm New Password"
+                  secure
+                  value={passData.confirmPass}
+                  onChange={(value) => handleChange("confirmPass", value)}
                 />
-
+                {errorText !== "" ? (
+                  <Text style={styles.errorTextStyle}>{errorText}</Text>
+                ) : null}
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   activeOpacity={0.5}
-                  //   onPress={handleSubmitPress}
+                  onPress={handlePasswordChange}
                 >
                   <Text style={styles.buttonTextStyle}>
                     {language.selectedLanguage === language.languages[0]
-                      ? "提交"
-                      : "Submit"}
+                      ? "更新"
+                      : "Update"}
                   </Text>
                 </TouchableOpacity>
               </KeyboardAvoidingView>

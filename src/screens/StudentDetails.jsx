@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
 
 const StudentDetails = ({ route }) => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const language = useSelector((state) => state.language);
   const initialSelectedStudent = {
     课题名称: "",
@@ -126,7 +127,7 @@ const StudentDetails = ({ route }) => {
     studentId: "",
     name: "",
     _id: "",
-    scoreUpdatedBy: ""
+    scoreUpdatedBy: "",
   };
   const [selectedStudent, setSelectedStudent] = React.useState({
     ...initialSelectedStudent,
@@ -142,9 +143,11 @@ const StudentDetails = ({ route }) => {
     setSelectedStudent(route?.params?.item);
   }, [route?.params?.item]);
 
-  const handleSubmitPress = () => {
-    console.log(selectedStudent);
-    dispatch(studentUpdate({...selectedStudent, scoreUpdatedBy: ""}));
+  const handleChangeScore = () => {
+    // console.log(selectedStudent);
+    dispatch(
+      studentUpdate({ ...selectedStudent, scoreUpdatedBy: auth.authData.name })
+    );
 
     setSelectedStudent(initialSelectedStudent);
     setModalVisible(true);
@@ -154,16 +157,6 @@ const StudentDetails = ({ route }) => {
   const handleChange = (name, value) => {
     setSelectedStudent({ ...selectedStudent, [name]: value });
   };
-
-  // const handleUpdateTodo = () => {
-  //   dispatch(studentUpdate({ ...textUpdate, title: text }));
-  //   onChangeText("");
-  //   setIsUpdateOn(false);
-  // };
-
-  // const handleDeleteTodo = (id) => {
-  //   dispatch(studentDelete(id));
-  // };
 
   return (
     <View style={styles.main}>
@@ -280,7 +273,7 @@ const StudentDetails = ({ route }) => {
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   activeOpacity={0.5}
-                  onPress={handleSubmitPress}
+                  onPress={handleChangeScore}
                 >
                   <Text style={styles.buttonTextStyle}>
                     {language.selectedLanguage === language.languages[0]

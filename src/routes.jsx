@@ -55,7 +55,7 @@ const Routes = () => {
           borderTopColor: "#d8d8d8",
         },
       }}
-      initialRouteName="细节"
+      initialRouteName="轮廓"
     >
       <Tab.Screen
         name={

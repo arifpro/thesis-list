@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+// import AsyncStorage from "@react-native-community/async-storage";
 
 // component
 import Loader from "../components/Loader";
@@ -220,7 +220,7 @@ const Login = ({ navigation }) => {
                 returnKeyType="next"
               />
             </View>
-            {errorText != "" ? (
+            {errorText !== "" ? (
               <Text style={styles.errorTextStyle}>{errorText}</Text>
             ) : null}
             <TouchableOpacity

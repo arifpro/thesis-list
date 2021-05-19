@@ -35,18 +35,18 @@ export const login = (data) => async (dispatch) => {
 };
 
 // <===================> changePassword <===================>
-export const changePassword = (newPassword) => async (dispatch) => {
+export const changePassword = (newPasswordData) => async (dispatch) => {
   try {
     dispatch({
       type: authConstants.CHANGE_PASSWORD_REQUEST,
     });
 
-    const res = await axios.post(`${API_URL}/change-password`, updateData);
+    const res = await axios.post(`${API_URL}/change-password`, newPasswordData);
 
     if (res.status === 200) {
       dispatch({
         type: authConstants.CHANGE_PASSWORD_SUCCESS,
-        payload: newPassword,
+        payload: newPasswordData.password,
       });
     } else {
       dispatch({
