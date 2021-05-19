@@ -14,8 +14,6 @@ export const studentGet = () => async (dispatch) => {
 
     const res = await axios.get(`${API_URL}/get-all`);
 
-    console.log(res.data.students)
-
     if (res) {
       dispatch({
         type: studentConstants.STUDENT_GET_SUCCESS,
