@@ -1,8 +1,8 @@
 import axios from "axios";
 import { authConstants } from "../actionTypes";
 
-const API_URL = "http://localhost:7000/api/judge";
-// const API_URL = 'https://thesis-list.herokuapp.com/api/student'
+// const API_URL = "http://localhost:7000/api/judge";
+const API_URL = 'https://thesis-list.herokuapp.com/api/judge'
 
 // <===================> login <===================>
 export const login = (data) => async (dispatch) => {

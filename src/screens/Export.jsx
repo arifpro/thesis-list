@@ -49,6 +49,7 @@ const Export = () => {
         instructorId,
         instructorName,
         judgeName,
+        scoreUpdatedBy,
       } = student;
       return {
         studentId,
@@ -61,6 +62,7 @@ const Export = () => {
         instructorId,
         instructorName,
         judgeName,
+        scoreUpdatedBy,
       };
     });
 

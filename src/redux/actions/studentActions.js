@@ -2,8 +2,8 @@ import axios from "axios";
 import shortid from "shortid";
 import { studentConstants } from "../actionTypes";
 
-const API_URL = "http://localhost:7000/api/student";
-// const API_URL = 'https://thesis-list.herokuapp.com/api/student'
+// const API_URL = "http://localhost:7000/api/student";
+const API_URL = 'https://thesis-list.herokuapp.com/api/student'
 
 // <===================> studentGet <===================>
 export const studentGet = () => async (dispatch) => {
