@@ -144,7 +144,7 @@ const StudentDetails = ({ route }) => {
 
   const handleSubmitPress = () => {
     console.log(selectedStudent);
-    dispatch(studentUpdate(selectedStudent));
+    dispatch(studentUpdate({...selectedStudent, scoreUpdatedBy: ""}));
 
     setSelectedStudent(initialSelectedStudent);
     setModalVisible(true);

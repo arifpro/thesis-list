@@ -27,11 +27,10 @@ const login = async (req, res) => {
         });
       }
 
-      const { name, email, phone } = user;
 
       return res.status(200).json({
         message: "Login success",
-        judge: { jobId, name, email, phone, password },
+        judge: user,
       });
     });
   } catch (err) {
@@ -65,7 +64,14 @@ const signup = (req, res) => {
         });
       }
 
-      const newJudge = new Judge({ name, title, jobId, email, phone, password });
+      const newJudge = new Judge({
+        name,
+        title,
+        jobId,
+        email,
+        phone,
+        password,
+      });
       const save = newJudge.save();
 
       if (save) {
@@ -75,4 +81,33 @@ const signup = (req, res) => {
   }
 };
 
-export { login, signup };
+// <==================== changePassword ====================>
+const changePassword = async (req, res) => {
+  const { _id, jobId, name, title, email, phone, password } = req.body;
+
+  if (!(jobId.length > 0) || !(name.length > 0) || !(password.length > 0)) {
+    return res.json({ message: "jobId, name and password must be required" });
+  }
+
+  try {
+    const editJudge = Judge.findByIdAndUpdate(_id, {
+      jobId,
+      name,
+      title,
+      email,
+      phone,
+      password,
+      updatedAt: Date.now(),
+    });
+
+    const edit = await editJudge.exec();
+
+    if (edit) {
+      return res.status(200).json({ success: "Judge updated successfully" });
+    }
+  } catch (err) {
+    return res.status(400).json({ error: err?.message });
+  }
+};
+
+export { login, signup, changePassword };

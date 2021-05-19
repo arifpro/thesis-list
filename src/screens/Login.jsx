@@ -15,7 +15,9 @@ import AsyncStorage from "@react-native-community/async-storage";
 // component
 import Loader from "../components/Loader";
 import axios from "axios";
-import {studentGet} from "../redux/actions/studentActions";
+import { studentGet } from "../redux/actions/studentActions";
+import { login } from "../redux/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   mainBody: {
@@ -52,7 +54,9 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: "#FFFFFF",
     paddingVertical: 10,
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "LongCang-Regular",
   },
   inputStyle: {
     flex: 1,
@@ -62,6 +66,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     borderColor: "#dadae8",
+    fontSize: 18,
+    width: '100%',
+    fontFamily: "LongCang-Regular",
   },
   registerTextStyle: {
     // color: "#FFFFFF",
@@ -80,6 +87,7 @@ const styles = StyleSheet.create({
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -89,9 +97,27 @@ const Login = ({ navigation }) => {
     dispatch(studentGet());
   }, []);
 
+  React.useEffect(() => {
+    setLoading(auth.loading);
+  }, [auth]);
+
+  React.useEffect(() => {
+    if (auth.authData?.name?.length > 0) {
+      navigation.replace("Home");
+    }
+  }, [auth.authData]);
+
+  React.useEffect(() => {
+    if (auth.error.length > 0) {
+      setErrorText("Id or password wrong");
+    } else {
+      setErrorText("");
+    }
+  }, [auth.error]);
+
   const passwordInputRef = createRef();
 
-  const handleSubmitPress = async () => {
+  const handleSubmitPress = () => {
     setErrorText("");
     if (!userId) {
       alert("Please fill Id");
@@ -101,24 +127,10 @@ const Login = ({ navigation }) => {
       alert("Please fill Password");
       return;
     }
-    setLoading(true);
+
     let dataToSend = { jobId: userId, password: userPassword };
 
-    const API_URL = "http://localhost:7000/api/judge/login";
-
-    try {
-      const res = await axios.post(API_URL, dataToSend);
-
-      if (res) setLoading(false);
-      if (res.status === 200) navigation.replace("Home");
-      else {
-        setErrorText(res);
-      }
-    } catch (error) {
-      setLoading(false);
-      //   console.log(error.message);
-      setErrorText("Id or password wrong");
-    }
+    dispatch(login(dataToSend));
   };
 
   return (
@@ -150,6 +162,7 @@ const Login = ({ navigation }) => {
                   fontSize: 20,
                   fontWeight: "bold",
                   color: "rgb(123, 123, 123)",
+                  fontFamily: "MaShanZheng-Regular",
                 }}
               >
                 西南林业大学
@@ -159,6 +172,7 @@ const Login = ({ navigation }) => {
                   fontSize: 20,
                   fontWeight: "bold",
                   color: "rgb(123, 123, 123)",
+                  fontFamily: "MaShanZheng-Regular",
                 }}
               >
                 毕业答辩打分系统
