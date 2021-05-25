@@ -5,7 +5,8 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "build:apk": "expo build:android -t apk"
+    "build:apk": "expo build:android -t apk",
+    "build:web": "expo build:web"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.13",

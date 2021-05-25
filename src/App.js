@@ -38,8 +38,6 @@ const App = () => {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Routes} />
         </Stack.Navigator>
-
-        {/* <Routes /> */}
       </NavigationContainer>
     </Provider>
   );

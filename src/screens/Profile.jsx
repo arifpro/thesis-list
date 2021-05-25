@@ -4,8 +4,10 @@ import {
   TextInput,
   View,
   Text,
+  SafeAreaView,
   ScrollView,
   Image,
+  StatusBar,
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -16,10 +18,14 @@ import { changeLanguage } from "../redux/actions/languageActions";
 import CustomInput from "../components/CustomInput";
 import { changePassword } from "../redux/actions/authActions";
 
+// icon
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 const styles = StyleSheet.create({
   main: {
     // backgroundColor: '#fff'
     backgroundColor: "#5a89ea",
+    paddingTop: StatusBar.currentHeight,
   },
   info: {
     height: "30vh",
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: "#f5f5f5",
-    height: "70vh",
+    // height: "70vh",
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     // boxShadow: "0px 5px 20px 0px white",
@@ -99,7 +105,7 @@ const styles2 = {
   },
 };
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const language = useSelector((state) => state.language);
@@ -149,111 +155,124 @@ const Profile = () => {
   };
 
   return (
-    <View style={styles.main}>
-      <View style={styles.info}>
-        <View style={styles.container}>
-          <Text style={styles2.title}>
-            {language.selectedLanguage === language.languages[0]
-              ? "选择语言"
-              : "Select Language"}
-          </Text>
+    <SafeAreaView style={styles.main}>
+      <ScrollView>
+        <TouchableOpacity
+          style={{ position: "absolute", right: 10, top: 10, zIndex: 99 }}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <MaterialCommunityIcons name="logout" size={30} color="white" />
+        </TouchableOpacity>
 
-          <View style={{ marginVertical: 20, paddingHorizontal: 120 }}>
-            <CustomDropdown
-              selectedLanguageIndex={
-                language.selectedLanguage === language.languages[0] ? 0 : 1
-              }
-              style={{ borderRadius: 35, backgroundColor: "black !important" }}
-              bgColor={"white"}
-              tintColor={"#666666"}
-              activityTintColor={"green"}
-              // arrowImg={}
-              // checkImage={}
-              optionTextStyle={{
-                color: "#333333",
-                paddingVertical: 10,
-              }}
-              // titleStyle={{color: '#333333'}}
-              //   maxHeight={300}
-              handler={(selection, row) =>
-                dispatch(changeLanguage(data[selection][row]))
-              }
-              data={data}
-            />
+        <View style={styles.info}>
+          <View style={styles.container}>
+            <Text style={styles2.title}>
+              {language.selectedLanguage === language.languages[0]
+                ? "选择语言"
+                : "Select Language"}
+            </Text>
+
+            <View style={{ marginVertical: 20, paddingHorizontal: 120 }}>
+              <CustomDropdown
+                selectedLanguageIndex={
+                  language.selectedLanguage === language.languages[0] ? 0 : 1
+                }
+                style={{
+                  borderRadius: 35,
+                  backgroundColor: "black !important",
+                }}
+                bgColor={"white"}
+                tintColor={"#666666"}
+                activityTintColor={"green"}
+                // arrowImg={}
+                // checkImage={}
+                optionTextStyle={{
+                  color: "#333333",
+                  paddingVertical: 10,
+                }}
+                // titleStyle={{color: '#333333'}}
+                //   maxHeight={300}
+                handler={(selection, row) =>
+                  dispatch(changeLanguage(data[selection][row]))
+                }
+                data={data}
+              />
+            </View>
           </View>
         </View>
-      </View>
 
-      {/* <=============== password section ===============> */}
-      <View style={styles.item}>
-        <View style={styles.container}>
-          <Text style={{ ...styles2.title, color: "#319795", fontSize: 18 }}>
-            {language.selectedLanguage === language.languages[0]
-              ? "欢迎"
-              : "Welcome"}
-            , {auth.authData.name}
-          </Text>
+        {/* <=============== password section ===============> */}
+        <View style={styles.item}>
+          <View style={styles.container}>
+            <Text style={{ ...styles2.title, color: "#319795", fontSize: 18 }}>
+              {language.selectedLanguage === language.languages[0]
+                ? "欢迎"
+                : "Welcome"}
+              , {auth.authData.name}
+            </Text>
 
-          <Text style={{ ...styles2.title, color: "#5a89ea" }}>
-            {language.selectedLanguage === language.languages[0]
-              ? "更改密码"
-              : "Change your password"}
-          </Text>
+            <Text style={{ ...styles2.title, color: "#5a89ea" }}>
+              {language.selectedLanguage === language.languages[0]
+                ? "更改密码"
+                : "Change your password"}
+            </Text>
 
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            contentContainerStyle={{
-              flex: 1,
-              justifyContent: "center",
-              alignContent: "center",
-            }}
-          >
-            <View>
-              <KeyboardAvoidingView enabled>
-                <CustomInput
-                  label
-                  cnPlaceholder="旧密码"
-                  enPlaceholder="Old Password"
-                  secure
-                  value={passData.oldPass}
-                  onChange={(value) => handleChange("oldPass", value)}
-                />
-                <CustomInput
-                  label
-                  cnPlaceholder="新密码"
-                  enPlaceholder="New Password"
-                  secure
-                  value={passData.newPass}
-                  onChange={(value) => handleChange("newPass", value)}
-                />
-                <CustomInput
-                  label
-                  cnPlaceholder="确认新密码"
-                  enPlaceholder="Confirm New Password"
-                  secure
-                  value={passData.confirmPass}
-                  onChange={(value) => handleChange("confirmPass", value)}
-                />
-                {errorText !== "" ? (
-                  <Text style={styles.errorTextStyle}>{errorText}</Text>
-                ) : null}
-                <TouchableOpacity
-                  style={styles.buttonStyle}
-                  activeOpacity={0.5}
-                  onPress={handlePasswordChange}
-                >
-                  <Text style={styles.buttonTextStyle}>
-                    {language.selectedLanguage === language.languages[0]
-                      ? "更新"
-                      : "Update"}
-                  </Text>
-                </TouchableOpacity>
-              </KeyboardAvoidingView>
-            </View>
-          </ScrollView>
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{
+                flex: 1,
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            >
+              <View>
+                <KeyboardAvoidingView enabled>
+                  <CustomInput
+                    label
+                    cnPlaceholder="旧密码"
+                    enPlaceholder="Old Password"
+                    secure
+                    value={passData.oldPass}
+                    onChange={(value) => handleChange("oldPass", value)}
+                  />
+                  <CustomInput
+                    label
+                    cnPlaceholder="新密码"
+                    enPlaceholder="New Password"
+                    secure
+                    value={passData.newPass}
+                    onChange={(value) => handleChange("newPass", value)}
+                  />
+                  <CustomInput
+                    label
+                    cnPlaceholder="确认新密码"
+                    enPlaceholder="Confirm New Password"
+                    secure
+                    value={passData.confirmPass}
+                    onChange={(value) => handleChange("confirmPass", value)}
+                  />
+                  {errorText !== "" ? (
+                    <Text style={styles.errorTextStyle}>{errorText}</Text>
+                  ) : null}
+                  <TouchableOpacity
+                    style={styles.buttonStyle}
+                    activeOpacity={0.5}
+                    onPress={handlePasswordChange}
+                  >
+                    <Text style={styles.buttonTextStyle}>
+                      {language.selectedLanguage === language.languages[0]
+                        ? "更新"
+                        : "Update"}
+                    </Text>
+                  </TouchableOpacity>
+                </KeyboardAvoidingView>
+              </View>
+            </ScrollView>
+          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
