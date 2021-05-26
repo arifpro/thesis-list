@@ -13,4 +13,4 @@ Thesis handle mobile app for SWFU (Southwest Forestry University).
 
 ## App download link
 
-- Android (apk): https://expo.io/artifacts/.......
+- Android (apk): https://expo.io/artifacts/c0196a26-ee1f-4458-9ca5-145a8bacb8e9

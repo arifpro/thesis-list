@@ -5,6 +5,7 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
+    "link": "react-native link",
     "build:apk": "expo build:android -t apk",
     "build:web": "expo build:web"
   },

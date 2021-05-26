@@ -28,8 +28,10 @@ class CustomDropdown extends Component {
       bgColor: "grey",
       tintColor: "#333333",
       activityTintColor: "red",
-      arrowImg: require("./img/dropdown_arrow@3x.png"),
-      checkImage: require("./img/menu_check.png"),
+      // arrowImg: require("./icons/dropdown_arrow.png"),
+      // checkImage: require("./icons/menu_check.png"),
+      arrowImg: require("../../assets/icons/dropdown_arrow.png"),
+      checkImage: require("../../assets/icons/menu_check.png"),
     };
   }
 

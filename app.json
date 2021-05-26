@@ -7,11 +7,11 @@
     "icon": "./icon.png",
     "version": "1.0.0",
     "ios": {
-      "bundleIdentifier": "me.devarif.thesis-list",
+      "bundleIdentifier": "me.devarif.thesislist",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "me.devarif.thesis-list",
+      "package": "me.devarif.thesislist",
       "versionCode": 1
     },
     "assetBundlePatterns": [

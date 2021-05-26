@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 // components
-import Routes from "./Routes";
+import Routes from "./routes";
 import Login from "./screens/Login";
 
 // redux
